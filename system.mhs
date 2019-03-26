@@ -18,6 +18,11 @@
  PORT DIP_Switches_TRI_I = DIP_Switches_TRI_I, DIR = I, VEC = [0:7]
  PORT CLK_P = CLK, DIR = I, DIFFERENTIAL_POLARITY = P, SIGIS = CLK, CLK_FREQ = 50000000
  PORT CLK_N = CLK, DIR = I, DIFFERENTIAL_POLARITY = N, SIGIS = CLK, CLK_FREQ = 50000000
+ PORT my_peripheral2_0_clk_i_pin = net_my_peripheral2_0_clk_i_pin, DIR = I, SIGIS = CLK
+ PORT my_peripheral2_0_reset_n_i_pin = net_my_peripheral2_0_reset_n_i_pin, DIR = I, SIGIS = RST
+ PORT my_peripheral2_0_vga_hsync_o_pin = my_peripheral2_0_vga_hsync_o, DIR = O
+ PORT my_peripheral2_0_vga_vsync_o_pin = my_peripheral2_0_vga_vsync_o, DIR = O
+ PORT my_peripheral2_0_blank_o_pin = my_peripheral2_0_blank_o, DIR = O
 
 
 BEGIN proc_sys_reset
@@ -167,5 +172,19 @@ BEGIN my_pheripheral
  PORT S_AXI_ACLK = clk_100_0000MHz
  PORT LED_Data = my_pheripheral_0_LED_Data_0
  PORT DIP_Data = my_pheripheral_0_DIP_Data
+END
+
+BEGIN my_peripheral2
+ PARAMETER INSTANCE = my_peripheral2_0
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_BASEADDR = 0x73c20000
+ PARAMETER C_HIGHADDR = 0x73c2ffff
+ BUS_INTERFACE S_AXI = axi4lite_0
+ PORT S_AXI_ACLK = clk_100_0000MHz
+ PORT clk_i = net_my_peripheral2_0_clk_i_pin
+ PORT reset_n_i = net_my_peripheral2_0_reset_n_i_pin
+ PORT vga_hsync_o = my_peripheral2_0_vga_hsync_o
+ PORT vga_vsync_o = my_peripheral2_0_vga_vsync_o
+ PORT blank_o = my_peripheral2_0_blank_o
 END
 
